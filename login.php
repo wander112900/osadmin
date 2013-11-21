@@ -13,11 +13,7 @@ if (Common::isPost ()) {
 		$user_info = User::checkPassword ( $user_name, $password );
 		if ($user_info) {
 			if($user_info['status']==1){
-				User::loginDoSomething($user_info['user_id']);
-				if($remember){
-					//$encrypted = OSAEncrypt::encrypt($user_info['user_id']);
-					User::setCookieRemember($user_info['user_id'],30);
-				}
+				User::loginDoSomething($user_info['user_id'],$remember);
 				$ip = Common::getIp();
 				SysLog::addLog ( $user_name, 'LOGIN', 'User' ,UserSession::getUserId(),json_encode(array("IP" => $ip)));
 				Common::jumpUrl ( 'index.php' );

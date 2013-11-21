@@ -17,16 +17,9 @@ if( OSAdmin::checkNoNeedLogin($action_url,$no_need_login_page) ){
 	;
 }else{
 	//else之后 需要验证登录信息
-	$user_cookie = $cookie->getUser();
-	if(empty($user_cookie)){
-		$user_id=User::getCookieRemember();
-		if($user_id>0){
-			User::loginDoSomething($user_id);
-		}
-	}
-	$current_user_info=UserSession::getSessionInfo();
 	User::checkLogin();
 	User::checkActionAccess();
+	$current_user_info=UserSession::getSessionInfo();
 	//如果非ajax请求
 	if(stripos($_SERVER['SCRIPT_NAME'],"/ajax")===false){
 		//显示菜单、导航条、模板

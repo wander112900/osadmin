@@ -274,7 +274,7 @@ class User extends Base{
 		return $ret;
 	}
 	
-	public static function loginDoSomething($user_id){
+	public static function loginDoSomething($user_id,$remember){
 		
 		$user_info = User::getUserById($user_id);
 		if($user_info['status']!=1){
@@ -300,6 +300,6 @@ class User extends Base{
 		User::updateUser ( $user_info['user_id'], $update_data );
 		$user_info['login_ip']=$login_ip;
 		$user_info['login_time']=Common::getDateTime($login_time);
-		UserSession::setSessionInfo( $user_info);
+		UserSession::setSessionInfo( $user_info,$remember);
 	}
 }
